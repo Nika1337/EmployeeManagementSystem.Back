@@ -8,9 +8,9 @@ public class Notification
     public string Text { get; private init; }
     public DateTime CreatedAtUtc { get; private init; }
 
-    private readonly List<EmployeeNotification> _employees = [];
+    private readonly List<EmployeeNotification> _recipients = [];
 
-    public IReadOnlyCollection<EmployeeNotification> Notifications => _employees.AsReadOnly();
+    public IReadOnlyCollection<EmployeeNotification> Recipients => _recipients.AsReadOnly();
 
     #pragma warning disable CS8618 // needed for ef core
     private Notification() { }
@@ -24,10 +24,10 @@ public class Notification
         CreatedAtUtc = DateTime.UtcNow;
     }
 
-    public void AssignEmployee(Employee employee)
+    public void AssignRecipient(Employee employee)
     {
         var employeeNotification = new EmployeeNotification(employee, this);
 
-        _employees.Add(employeeNotification);
+        _recipients.Add(employeeNotification);
     }
 }
