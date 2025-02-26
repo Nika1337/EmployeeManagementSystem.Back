@@ -11,6 +11,8 @@ public class NotificationsByEmployeeIdSpecification : Specification<EmployeeNoti
     {
         Query.Where(en => en.Employee.Id == employeeId);
 
+        Query.OrderByDescending(en => en.Notification.CreatedAtUtc);
+
         Query.Select(en => new NotificationResult
         {
             Id = en.Notification.Id,
