@@ -7,7 +7,10 @@ public class Notification
     public string Title { get; private init; }
     public string Text { get; private init; }
     public DateTime CreatedAtUtc { get; private init; }
-    public bool IsRead { get; private set; }
+
+    private readonly List<EmployeeNotification> _employees = [];
+
+    public IReadOnlyCollection<EmployeeNotification> Notifications => _employees.AsReadOnly();
 
     #pragma warning disable CS8618 // needed for ef core
     private Notification() { }
@@ -19,11 +22,12 @@ public class Notification
         Title = title;
         Text = text;
         CreatedAtUtc = DateTime.UtcNow;
-        IsRead = false;
     }
 
-    public void MarkAsRead()
+    public void AssignEmployee(Employee employee)
     {
-        IsRead = true;
+        var employeeNotification = new EmployeeNotification(employee, this);
+
+        _employees.Add(employeeNotification);
     }
 }

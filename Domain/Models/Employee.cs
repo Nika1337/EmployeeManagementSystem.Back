@@ -10,9 +10,9 @@ public class Employee
     public string Position { get; private set; }
     public string Department { get; private set; }
 
-    private readonly List<Notification> _notifications = [];
+    private readonly List<EmployeeNotification> _notifications = [];
 
-    public IReadOnlyCollection<Notification> Notifications => _notifications.AsReadOnly();
+    public IReadOnlyCollection<EmployeeNotification> Notifications => _notifications.AsReadOnly();
 
     #pragma warning disable CS8618 // Required for ef core
     private Employee() { }
@@ -35,10 +35,10 @@ public class Employee
         Department = department;
     }
 
-    public void AddNotification(string title, string text)
+    public void AssignNotification(Notification notification)
     {
-        var notification = new Notification(title, text);
+        var employeeNotification = new EmployeeNotification(this, notification);
 
-        _notifications.Add(notification);
+        _notifications.Add(employeeNotification);
     }
 }
