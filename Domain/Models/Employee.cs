@@ -9,6 +9,9 @@ public class Employee
     public string LastName { get; private set; }
     public string Position { get; private set; }
     public string Department { get; private set; }
+    public DateOnly BirthDate { get; private set; }
+    public DateOnly StartDate { get; private init; }
+
 
     private readonly List<EmployeeNotification> _notifications = [];
 
@@ -18,21 +21,39 @@ public class Employee
     private Employee() { }
     #pragma warning restore CS8618 
 
-    public Employee(string firstName, string lastName, string position, string department)
+    public Employee(string firstName, string lastName, string position, string department, DateOnly birthDate)
     {
         Id = Guid.NewGuid();
         FirstName = firstName;
         LastName = lastName;
         Position = position;
         Department = department;
+        BirthDate = birthDate;
+        StartDate = DateOnly.FromDateTime(DateTime.Now);
     }
 
-    public void Update(string firstName, string lastName, string position, string department)
+    public void UpdateFirstName(string firstName)
     {
         FirstName = firstName;
+    }
+
+    public void UpdateLastName(string lastName)
+    {
         LastName = lastName;
-        Position = position;
+    }
+    public void UpdateBirthDate(DateOnly birthDate)
+    {
+        BirthDate = birthDate;
+    }
+
+    public void TransferToDepartment(string department)
+    {
         Department = department;
+    }
+
+    public void ChangePosition(string position)
+    {
+        Position = position;
     }
 
     public void AssignNotification(Notification notification)
