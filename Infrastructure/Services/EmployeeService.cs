@@ -30,8 +30,8 @@ internal class EmployeeService : IEmployeeService
             LastName = employee.LastName,
             Department = employee.Department,
             Position = employee.Position,
-            StartDate = employee.StartDate,
-            BirthDate = employee.BirthDate
+            StartDateUtc = employee.StartDateUtc,
+            BirthDateUtc = employee.BirthDateUtc
         };
 
         return response;
@@ -41,9 +41,9 @@ internal class EmployeeService : IEmployeeService
     {
         var employee = await _repository.GetByIdAsync(request.EmployeeId) ?? throw new NotFoundException($"Employee with '{request.EmployeeId}' not found.");
 
-        employee.UpdateBirthDate(request.BirthDate);
-        employee.UpdateFirstName(employee.FirstName);
-        employee.UpdateLastName(employee.LastName);
+        employee.UpdateBirthDate(request.BirthDateUtc);
+        employee.UpdateFirstName(request.FirstName);
+        employee.UpdateLastName(request.LastName);
 
         await _repository.UpdateAsync(employee);
     }

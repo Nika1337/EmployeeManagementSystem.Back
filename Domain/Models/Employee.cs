@@ -9,8 +9,8 @@ public class Employee
     public string LastName { get; private set; }
     public string Position { get; private set; }
     public string Department { get; private set; }
-    public DateOnly BirthDate { get; private set; }
-    public DateOnly StartDate { get; private init; }
+    public DateTime BirthDateUtc { get; private set; }
+    public DateTime StartDateUtc { get; private init; }
 
 
     private readonly List<EmployeeNotification> _notifications = [];
@@ -21,15 +21,15 @@ public class Employee
     private Employee() { }
     #pragma warning restore CS8618 
 
-    public Employee(string firstName, string lastName, string position, string department, DateOnly birthDate)
+    public Employee(string firstName, string lastName, string position, string department, DateTime birthDate)
     {
         Id = Guid.NewGuid();
         FirstName = firstName;
         LastName = lastName;
         Position = position;
         Department = department;
-        BirthDate = birthDate;
-        StartDate = DateOnly.FromDateTime(DateTime.Now);
+        BirthDateUtc = birthDate;
+        StartDateUtc = DateTime.UtcNow;
     }
 
     public void UpdateFirstName(string firstName)
@@ -41,9 +41,9 @@ public class Employee
     {
         LastName = lastName;
     }
-    public void UpdateBirthDate(DateOnly birthDate)
+    public void UpdateBirthDate(DateTime birthDate)
     {
-        BirthDate = birthDate;
+        BirthDateUtc = birthDate;
     }
 
     public void TransferToDepartment(string department)

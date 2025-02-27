@@ -17,8 +17,8 @@ public class EmployeeProfileByIdSpecification : SingleResultSpecification<Employ
             LastName = empl.LastName,
             Position = empl.Position,
             Department = empl.Department,
-            BirthDate = empl.BirthDate,
-            StartDate = empl.StartDate
+            BirthDateUtc = empl.BirthDateUtc,
+            StartDateUtc = empl.StartDateUtc
         });
 
         Query.AsNoTracking();

@@ -38,8 +38,8 @@ public static class DataSeeder
     {
         if (await dbContext.Employees.AnyAsync()) return;
 
-        var david = new Employee("David", "Davitidze", "Software Engineer", "IT", new DateOnly(1990, 5, 15));
-        var nino = new Employee("Nino", "Ninuladze", "Administrator", "HR", new DateOnly(1985, 8, 25));
+        var david = new Employee("David", "Davitidze", "Software Engineer", "IT", new DateOnly(1990, 5, 15).ToDateTime(TimeOnly.MinValue));
+        var nino = new Employee("Nino", "Ninuladze", "Administrator", "HR", new DateOnly(1985, 8, 25).ToDateTime(TimeOnly.MinValue));
 
         var identityUsers = new List<IdentityUser>
             {
