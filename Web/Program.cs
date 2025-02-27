@@ -9,6 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureServices(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
+
 builder.Services.AddAuthenticationJwtBearer(s => s.SigningKey = AuthorizationExtensions.SecretKey);
 builder.Services.AddAuthentication(o =>
     o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme);
@@ -28,6 +40,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularApp"); // Apply the CORS policy
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UsePresentationLayer();
